@@ -1,33 +1,49 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const Problem1 = () => {
 
+
+    const [show, setShow] = useState('all');
+    const [refresh, setRefresh] = useState(false);
+    const [data, setData] = useState([]);
+    const [filteredData, setFilteredData] = useState(data);
     const [singleData, setSingleData] = useState({
         name:"",
         status:""
     });
-    const [show, setShow] = useState('all');
-    const [data, setData] = useState([]);
 
     const handleClick = (val) =>{
         setShow(val);
     }
+
+    useEffect(()=>{
+        handleFilterData(show,data)
+    },[show])
+
+    const handleFilterData= (val = show, data = data) =>{
+        if(val==='all') setFilteredData(data);
+        else{
+            let newData = data.filter(item=>item.status===val)
+            setFilteredData(newData);
+        }
+        setRefresh(!refresh)
+    }
+
     const handleAddData = (e) =>{
-        // setShow(val);
-        e.preventDefault();
         let tempData = [...data];
         tempData.push(singleData);
         setData(tempData)
-        console.log("singleData",singleData)
-        console.log("data",data)
-        // setSingleData()
+        handleFilterData(show,tempData)
+        e.preventDefault();
     }
 
+    
     const handleInput = (field,val) =>{
-        // console.log("tempData",field,val)
-        singleData[field] = val;
-        setSingleData(singleData)
+        let values = {...singleData}
+        values[field] = val;
+        setSingleData(values)
     }
+
 
     return (
 
@@ -35,7 +51,7 @@ const Problem1 = () => {
             <div className="row justify-content-center mt-5">
                 <h4 className='text-center text-uppercase mb-5'>Problem-1</h4>
                 <div className="col-6 ">
-                    <form className="row gy-2 gx-3 align-items-center mb-4">
+                    <form className="row gy-2 gx-3 align-items-center mb-4" onSubmit={handleAddData}>
                         <div className="col-auto">
                             <input type="text" className="form-control" placeholder="Name" onChange={(e)=>handleInput("name",e.target.value)}/>
                         </div>
@@ -43,7 +59,7 @@ const Problem1 = () => {
                             <input type="text" className="form-control" placeholder="Status" onChange={(e)=>handleInput("status",e.target.value)}/>
                         </div>
                         <div className="col-auto">
-                            <button type="submit" className="btn btn-primary" onClick={handleAddData}>Submit</button>
+                            <button type="submit" className="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -68,8 +84,7 @@ const Problem1 = () => {
                         </tr>
                         </thead>
                         <tbody>
-                            {/* {data?.map((item,index)=>console.log({item}))} */}
-                            {data?.map((item,index)=><tr key={index}>
+                            {filteredData?.map((item,index)=><tr key={index}>
                                 <td>{item?.name}</td>
                                 <td>{item?.status}</td>
                             </tr>)}
