@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { appStyles } from '../utils/appStyles';
 import callApi from '../utils/callApi';
+import AppButton from './AppButton';
 import Contacts from './Contacts';
 import Modal from './Modal';
 
@@ -75,8 +77,8 @@ const Problem2 = () => {
                 <h4 className='text-center text-uppercase mb-5'>Problem-2</h4>
                 
                 <div className="d-flex justify-content-center gap-3">
-                <button className="btn btn-lg btn-outline-primary" type="button" data-bs-target="#modalA" data-bs-toggle="modal">All Contacts</button>
-                <button className="btn btn-lg btn-outline-warning" type="button" data-bs-target="#modalB" data-bs-toggle="modal">US Contacts</button>
+                <button className="btn btn-lg buttonA" type="button" data-bs-target="#modalA" data-bs-toggle="modal" style={appStyles.buttonA}>All Contacts</button>
+                <button className="btn btn-lg btn-outline-warning" type="button" data-bs-target="#modalB" data-bs-toggle="modal" style={appStyles.buttonB}>US Contacts</button>
                 </div>
 
                 {/* MOdal A  */}
@@ -88,16 +90,11 @@ const Problem2 = () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            {/* <ul>
-                            {allContactList?.map((item,index)=><li key={index}>
-                                {item?.phone}
-                            </li>)}
-                            </ul> */}
                             <Contacts contactList={allContactList}/>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-primary" data-bs-target="#modalB" data-bs-toggle="modal">US Contacts</button>
-                            <button class="btn btn-primary"  data-bs-dismiss="modal" aria-label="Close">Close</button>
+                            <AppButton name="buttonB" class="btn"  data-bs-target="#modalB" data-bs-toggle="modal">US Contacts</AppButton>
+                            <AppButton name="buttonC" class="btn"  data-bs-dismiss="modal" aria-label="Close">Close</AppButton>
                         </div>
                         </div>
                     </div>
@@ -121,7 +118,8 @@ const Problem2 = () => {
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-target="#modalA" data-bs-toggle="modal">All Contacts</button>
-                        <button class="btn btn-primary"  data-bs-dismiss="modal" aria-label="Close">Close</button>
+                        {/* <button class="btn btn-primary"  data-bs-dismiss="modal" aria-label="Close">Close</button> */}
+                        <AppButton name="buttonC" class="btn"  data-bs-dismiss="modal" aria-label="Close">Close</AppButton>
                     </div>
                     </div>
                 </div>

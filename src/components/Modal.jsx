@@ -1,23 +1,26 @@
 import React from 'react'
+import AppButton from './AppButton'
+import Contacts from './Contacts'
 
-function Modal({id,}) {
+function Modal(props) {
   return (
-    <div class="modal fade" id="modalB" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">US Contacts</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Hide this modal and show the first with the button below.
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#modalA" data-bs-toggle="modal">Back to first</button>
-                    </div>
-                    </div>
-                </div>
-                </div>
+    <div {...props}>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal A - All Contacts</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <Contacts contactList={allContactList}/>
+        </div>
+        <div class="modal-footer">
+            <AppButton name="buttonB" class="btn"  data-bs-target="#modalB" data-bs-toggle="modal">US Contacts</AppButton>
+            <AppButton name="buttonC" class="btn"  data-bs-dismiss="modal" aria-label="Close">Close</AppButton>
+        </div>
+        </div>
+    </div>
+</div>
   )
 }
 
